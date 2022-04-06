@@ -10,6 +10,7 @@
     <title>EbuCodes ReferralManagementSystem.v1</title>
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/images/favicon1.png">
 
     <style>
