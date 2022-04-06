@@ -7,14 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Cover Template · Bootstrap v5.0</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
-
-
-
+    <title>EbuCodes ReferralManagementSystem.v1</title>
     <!-- Bootstrap core CSS -->
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon1.png">
 
     <style>
         .bd-placeholder-img {
@@ -34,7 +30,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="cover.css" rel="stylesheet">
+    <link href="assets/css/index.css" rel="stylesheet">
 </head>
 
 <body class="d-flex h-100 text-center text-white bg-dark">
@@ -42,11 +38,11 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">Cover</h3>
+                <h3 class="float-md-start mb-0">EbuCodes ReferralMS</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                    <a class="nav-link" href="users/">Login</a>
+                    <a class="nav-link" href="users/register.php">Become a Member</a>
                 </nav>
             </div>
         </header>
