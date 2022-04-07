@@ -76,7 +76,7 @@ $link = $user_info["referCode"];
           <p>Hi, <?php echo $first." ".$last;  ?></b>. Welcome to EbuCodes ReferManagementSystem</p>
           <p>Your membership ID is <b><?php echo $userID; ?></b></p>
           <p>Your referral point is <b><?php echo $point; ?></b></p>
-          <p>Your referral link is <b>http://localhost/ebucodes/ReferManagementSystem.v1/users/?<?php echo $link ?></b></p>
+          <p>Your referral link is <b>http://localhost/ebucodes/ReferManagementSystem.v1/users/?invite=<?php echo $link ?></b></p>
           <p>
           <a class="btn btn-success" href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">Share via Whatsapp</a>
           </p>

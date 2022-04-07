@@ -9,14 +9,13 @@
     $lastName = $_POST["lastName"];
     $emailAddress = $_POST["emailAddress"];
     $password = md5($_POST["password"]);  
-    $refer = $_POST["refer"];
-    // $referCode = "$code";
-
     //generate voters id
     $set = "0123456789";
     $user = substr(str_shuffle($set), 0, 6);
     // Voter ID
-    $userID = "USER$user";    
+    $userID = "USER$user";
+    $refer = $_POST["refer"];
+    $referCode = "$userID";    
     // To check if the user already exists
     $sql1 = mysqli_query($conn, "SELECT emailAddress FROM users WHERE emailAddress='$emailAddress'");
       if (mysqli_num_rows($sql1) > 0) {
@@ -44,7 +43,6 @@
 
         $query = mysqli_query($conn, "INSERT INTO users (userID, firstName, lastName, emailAddress, password, refer, referCode) VALUES ('$userID','$firstName', '$lastName','$emailAddress','$password', '$refer', '$referCode')") or die(mysqli_error($conn));
         if ($query) {
-          include("mail.php");
         ?>
             <script>
                 setTimeout(function() {
