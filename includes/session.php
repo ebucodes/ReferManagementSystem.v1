@@ -3,7 +3,7 @@
     session_start();
     //Query to store session
     if (!isset($_SESSION["id"])) {
-        header("location:users/index.php");
+        header("location:../users/");
     } else {
         $session_id = $_SESSION['id'];
         $session_query = ("SELECT * FROM users WHERE id = '$session_id'") or die(mysqli_errno($conn));
