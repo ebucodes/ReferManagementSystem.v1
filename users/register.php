@@ -1,3 +1,84 @@
+
+<?php
+    include("../includes/config.php");
+    $invite = $_GET["invite"];
+    $refer = ucwords($invite);
+    
+    if (isset($_POST["register"])) {
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $emailAddress = $_POST["emailAddress"];
+    $password = md5($_POST["password"]);  
+    $refer = $_POST["refer"];
+    // $referCode = "$code";
+
+    //generate voters id
+    $set = "0123456789";
+    $user = substr(str_shuffle($set), 0, 6);
+    // Voter ID
+    $userID = "USER$user";    
+    // To check if the user already exists
+    $sql1 = mysqli_query($conn, "SELECT emailAddress FROM users WHERE emailAddress='$emailAddress'");
+      if (mysqli_num_rows($sql1) > 0) {
+        ?>
+            <script>
+                setTimeout(function() {
+                        swal("Error!", "Email Address already in use", "error")
+                    },
+                    100);
+            </script> 
+
+        <?php
+      } else {
+          if ($referCode != "") {
+              $sql2 = mysqli_query($conn, "SELECT * FROM users WHERE referCode=$referCode");
+              if ($sql2) {
+                  if (mysqli_num_rows($sql2)==1) {
+                      $fetchSql2=mysqli_fetch_assoc($sql2);
+                      $point=$fetchSql2["referPoint"]+10;
+                    $updatePoint="UPDATE users SET referPoint='$point' WHERE emailAddress='$fetchSql2[emailAddress]'";
+                    }
+              }
+          }
+
+
+        $query = mysqli_query($conn, "INSERT INTO users (userID, firstName, lastName, emailAddress, password, refer, referCode) VALUES ('$userID','$firstName', '$lastName','$emailAddress','$password', '$refer', '$referCode')") or die(mysqli_error($conn));
+        if ($query) {
+          include("mail.php");
+        ?>
+            <script>
+                setTimeout(function() {
+                        swal({
+                            title: "Congratulations!!!",
+                            text: "Registration was successfully.",
+                            html: true,
+                            icon: "success",
+                            button: "OK",
+                        }).then(function(){
+                      window.location = "../users/";
+                    });
+                    },
+                    100);
+            </script>
+
+        <?php
+        } else {
+        ?>
+            <script>
+                setTimeout(function() {
+                        swal("Error!", "User not added!", "error");
+                    },
+                    100);
+            </script> 
+        <?php
+        }
+        
+      }
+      
+  }   
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,6 +93,8 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/images/favicon1.png">
+    <!-- Sweetalert -->
+    <link rel="stylesheet" href="../assets/css/sweetalert.min.css">
 
     <style>
       .bd-placeholder-img {
@@ -48,8 +131,19 @@
         <!-- <h4 class="mb-3"></h4> -->
         <form method="POST" class="needs-validation" novalidate>
           <div class="row g-3">
+            <?php 
+                if ($invite == "") {
+                    echo "";
+                } else {
+                    echo "<p class='card-text alert alert-success'>Referred By: $refer</p>";
+                }
+            ?>
+            <div class="col-sm-12">
+              <input type="text" class="form-control" name="refer" value="<?php echo $refer; ?>" hidden>
+            </div>
+
             <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
+              <label for="firstName" class="form-label">First name</label>&nbsp;<span style="color: red;">*</span>
               <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Your first name" value="" required>
               <div class="invalid-feedback">
                 Valid first name is required.
@@ -57,7 +151,7 @@
             </div>
 
             <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
+              <label for="lastName" class="form-label">Last name</label>&nbsp;<span style="color: red;">*</span>
               <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Your last name" value="" required>
               <div class="invalid-feedback">
                 Valid last name is required.
@@ -65,20 +159,17 @@
             </div>
 
             <div class="col-sm-6">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Your email address" required>
+              <label for="email" class="form-label">Email Address</label>&nbsp;<span style="color: red;">*</span>
+              <input type="email" name="emailAddress" class="form-control" id="email" placeholder="Your email address" required>
               <div class="invalid-feedback">
                 Please enter a valid email address.
-              </div>
+              </div> 
             </div>
 
             <div class="col-sm-6">
               <label for="address" class="form-label">Password</label>&nbsp;<span style="color: red;">*</span>
-              <input type="password" class="form-control" id="address" minlength="5" maxlength="12" placeholder="Your password" required>
-              <div class="invalid-feedback">
-                Password is required.<br>
-                Minimum length is 5.<br>
-                Maximum length is 12.
+              <input type="password" name="password" class="form-control" id="address" minlength="5" maxlength="12" placeholder="Your password" required>
+              <div class="invalid-feedback">Password is required.<br>Minimum length is 5.<br>Maximum length is 12.
               </div>
             </div>
          
@@ -97,9 +188,13 @@
   </footer>
 </div>
 
-
+    <!-- Bootstrap -->
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
-      <script src="../assets/js/form-validation.js"></script>
+    <!-- Form validation -->
+    <script src="../assets/js/form-validation.js"></script>
+    <!-- jQuery -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <!-- SweetAlert -->
+    <script src="../assets/js/sweetalert.min.js"></script>
   </body>
 </html>
