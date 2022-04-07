@@ -1,9 +1,27 @@
-
-<?php
+<?php 
     include("../includes/config.php");
-    $invite = $_GET["invite"];
-    $refer = ucwords($invite);
-    
+                if (!(isset($_GET['invite']))) {
+                  echo "";
+                } else {
+                  $invite = $_GET["invite"];
+                  $inviteQuery =mysqli_query($conn, "SELECT * FROM users WHERE referCode='$invite'");
+                  $inviteArray = mysqli_fetch_assoc($inviteQuery);
+                  $referName = $inviteArray["firstName"]." ".$inviteArray["lastName"];
+                  $referEmail = $inviteArray["emailAddress"];
+                  $point = $inviteArray["referPoint"];
+                  $add = 10;
+                  $referPoint = $point + $add;
+                  // echo "Referrer Email: $referEmail<br>";
+                  // echo "Referrer Point: $referPoint";
+                  $updatePoint = mysqli_query($conn,"UPDATE users SET referPoint='$referPoint' WHERE emailAddress='$referEmail'") or die(mysqli_error($conn));
+                  if (!$updatePoint) {
+                    echo "No";
+                    exit;
+                  } 
+                }
+            ?>
+    <?php
+    include("../includes/config.php");
     if (isset($_POST["register"])) {
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
@@ -15,7 +33,7 @@
     // Voter ID
     $userID = "USER$user";
     $refer = $_POST["refer"];
-    $referCode = "$userID";    
+    $referCode = "$userID"; 
     // To check if the user already exists
     $sql1 = mysqli_query($conn, "SELECT emailAddress FROM users WHERE emailAddress='$emailAddress'");
       if (mysqli_num_rows($sql1) > 0) {
@@ -29,18 +47,7 @@
 
         <?php
       } else {
-          if ($referCode != "") {
-              $sql2 = mysqli_query($conn, "SELECT * FROM users WHERE referCode=$referCode");
-              if ($sql2) {
-                  if (mysqli_num_rows($sql2)==1) {
-                      $fetchSql2=mysqli_fetch_assoc($sql2);
-                      $point=$fetchSql2["referPoint"]+10;
-                    $updatePoint="UPDATE users SET referPoint='$point' WHERE emailAddress='$fetchSql2[emailAddress]'";
-                    }
-              }
-          }
-
-
+        // Register new user
         $query = mysqli_query($conn, "INSERT INTO users (userID, firstName, lastName, emailAddress, password, refer, referCode) VALUES ('$userID','$firstName', '$lastName','$emailAddress','$password', '$refer', '$referCode')") or die(mysqli_error($conn));
         if ($query) {
         ?>
@@ -130,14 +137,14 @@
         <form method="POST" class="needs-validation" novalidate>
           <div class="row g-3">
             <?php 
-                if ($invite == "") {
-                    echo "";
+                if (!(isset($_GET['invite']))) {
+                  $referName = "";
                 } else {
-                    echo "<p class='card-text alert alert-success'>Referred By: $refer</p>";
+                    echo "<p class='card-text alert alert-success'>Referred By: $referName</p>";
                 }
             ?>
             <div class="col-sm-12">
-              <input type="text" class="form-control" name="refer" value="<?php echo $refer; ?>" hidden>
+              <input type="text" class="form-control" name="refer" value="<?php echo $referName; ?>" readonly>
             </div>
 
             <div class="col-sm-6">
