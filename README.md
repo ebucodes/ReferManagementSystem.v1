@@ -3,6 +3,7 @@ A simple referral Management system
 
 # System requirement
 => Xampp
+
 => IDE (Visual Studio Code or any one of your choice)
 
 # Login requirements
@@ -12,7 +13,9 @@ A simple referral Management system
 
 # Languages and stacks used
 => Bootstrap 5
+
 => SweetAlert
-=> DataTables
+
 => PHP 7 or greater
+
 => MySQL
