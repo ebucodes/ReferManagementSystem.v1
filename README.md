@@ -23,3 +23,6 @@ Or you can go to **admin/register.php** to register new admin
 => PHP 7 or greater
 
 => MySQL
+
+
+## Any troubles or enquiries contact me: **ebucodes@gmail.com** 
