@@ -7,9 +7,12 @@ A simple referral Management system
 => IDE (Visual Studio Code or any one of your choice)
 
 # Login requirements
-**Admin**
+**Admin Login Details**
 *email address:* **admin@mail.com**
-*password:* 
+
+*password:* **21232f297a57a5a743894a0e4a801fc3**
+
+Or you can go to **admin/register.php** to register new admin
 
 # Languages and stacks used
 => Bootstrap 5
