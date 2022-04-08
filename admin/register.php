@@ -1,41 +1,11 @@
-<?php 
-    include("../includes/config.php");
-                if (!(isset($_GET['invite']))) {
-                  echo "";
-                } else {
-                  $invite = $_GET["invite"];
-                  $inviteQuery =mysqli_query($conn, "SELECT * FROM users WHERE referCode='$invite'");
-                  $inviteArray = mysqli_fetch_assoc($inviteQuery);
-                  $referName = $inviteArray["firstName"]." ".$inviteArray["lastName"];
-                  $referEmail = $inviteArray["emailAddress"];
-                  $point = $inviteArray["referPoint"];
-                  $add = 10;
-                  $referPoint = $point + $add;
-                  // echo "Referrer Email: $referEmail<br>";
-                  // echo "Referrer Point: $referPoint";
-                  $updatePoint = mysqli_query($conn,"UPDATE users SET referPoint='$referPoint' WHERE emailAddress='$referEmail'") or die(mysqli_error($conn));
-                  if (!$updatePoint) {
-                    echo "No";
-                    exit;
-                  } 
-                }
-            ?>
     <?php
     include("../includes/config.php");
-    if (isset($_POST["register"])) {
-    $firstName = $_POST["firstName"];
-    $lastName = $_POST["lastName"];
+    if (isset($_POST["registerAdmin"])) {
+    $fullName = $_POST["fullName"];
     $emailAddress = $_POST["emailAddress"];
     $password = md5($_POST["password"]);  
-    //generate voters id
-    $set = "0123456789";
-    $user = substr(str_shuffle($set), 0, 6);
-    // Voter ID
-    $userID = "USER$user";
-    $refer = $_POST["refer"];
-    $referCode = "$userID"; 
     // To check if the user already exists
-    $sql1 = mysqli_query($conn, "SELECT emailAddress FROM users WHERE emailAddress='$emailAddress'");
+    $sql1 = mysqli_query($conn, "SELECT emailAddress FROM admin WHERE emailAddress='$emailAddress'");
       if (mysqli_num_rows($sql1) > 0) {
         ?>
             <script>
@@ -48,7 +18,7 @@
         <?php
       } else {
         // Register new user
-        $query = mysqli_query($conn, "INSERT INTO users (userID, firstName, lastName, emailAddress, password, refer, referCode) VALUES ('$userID','$firstName', '$lastName','$emailAddress','$password', '$refer', '$referCode')") or die(mysqli_error($conn));
+        $query = mysqli_query($conn, "INSERT INTO admin (fullName, emailAddress, password) VALUES ('$fullName','$emailAddress','$password')") or die(mysqli_error($conn));
         if ($query) {
         ?>
             <script>
@@ -60,7 +30,7 @@
                             icon: "success",
                             button: "OK",
                         }).then(function(){
-                      window.location = "../users/";
+                      window.location = "../admin/";
                     });
                     },
                     100);
@@ -125,45 +95,27 @@
     
 <div class="container">
   <main>
-    <div class="py-5 text-center">
+    <div class="text-center">
       <img class="d-block mx-auto mb-4" src="../assets/images/logo2.png" alt="" width="100" height="">
-      <h2>Registration Form</h2>
+      <h2>Registration Form for Administrators</h2>
       <p class="lead">Please enter your details correctly</p>
     </div>
 
-    <div class="row g-5">
-      <div class="col-md-12">
+    <div class="row">
+      <div class="col-sm-12">
         <!-- <h4 class="mb-3"></h4> -->
         <form method="POST" class="needs-validation" novalidate>
           <div class="row g-3">
-            <?php 
-                if (!(isset($_GET['invite']))) {
-                  $referName = "";
-                } else {
-                    echo "<p class='card-text alert alert-success'>Referred By: $referName</p>";
-                }
-            ?>
+
             <div class="col-sm-12">
-              <input type="text" class="form-control" name="refer" value="<?php echo $referName; ?>" hidden>
-            </div>
-
-            <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>&nbsp;<span style="color: red;">*</span>
-              <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Your first name" value="" required>
+              <label for="fullName" class="form-label">Name</label>&nbsp;<span style="color: red;">*</span>
+              <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Your full name" value="" required>
               <div class="invalid-feedback">
-                Valid first name is required.
+                Valid name is required.
               </div>
             </div>
 
-            <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>&nbsp;<span style="color: red;">*</span>
-              <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Your last name" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
-
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <label for="email" class="form-label">Email Address</label>&nbsp;<span style="color: red;">*</span>
               <input type="email" name="emailAddress" class="form-control" id="email" placeholder="Your email address" required>
               <div class="invalid-feedback">
@@ -171,7 +123,7 @@
               </div> 
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <label for="address" class="form-label">Password</label>&nbsp;<span style="color: red;">*</span>
               <input type="password" name="password" class="form-control" id="address" minlength="5" maxlength="12" placeholder="Your password" required>
               <div class="invalid-feedback">Password is required.<br>Minimum length is 5.<br>Maximum length is 12.
@@ -182,15 +134,12 @@
 
           <br class="my-2">
 
-          <button name="register" class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
+          <button name="registerAdmin" class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
         </form>
       </div>
     </div>
   </main>
 
-  <footer class="my-2 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; <?php echo date('Y'); ?></p>
-  </footer>
 </div>
 
     <!-- Bootstrap -->
