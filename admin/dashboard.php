@@ -10,10 +10,11 @@
     <title>Admin Dashboard</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/images/logo1.png">  
-
     <!-- Bootstrap core CSS -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- Datatables -->
+    <link rel="stylesheet" href="../assets/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../assets/css/buttons.bootstrap4.min.css">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -126,6 +127,26 @@
     <!-- jQuery -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/dashboard.js"></script>
+    <!-- DataTables -->
+    <script src="../assets/datatables/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/datatables/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../assets/datatables/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/datatables/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="../assets/datatables/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/datatables/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/datatables/jszip/jszip.min.js"></script>
+    <script src="../assets/datatables/pdfmake/pdfmake.min.js"></script>
+    <script src="../assets/datatables/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/datatables/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="../assets/datatables/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="../assets/datatables/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+            "responsive": true, "lengthChange": true, "autoWidth": true,"paging": true,"ordering": true,"info": true,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        })
+    </script>
 </body>
-
 </html>

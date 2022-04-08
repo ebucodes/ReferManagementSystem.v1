@@ -85,6 +85,7 @@ if (isset($_POST["login"])) {
 
     <button name="login" class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
   </form>
+  <p class="lead">Not a member?&nbsp;<a href="register.php">Sign Up</a></p>
 </main>
 
     <!-- Bootstrap -->

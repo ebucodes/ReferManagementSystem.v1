@@ -84,6 +84,5 @@ if (isset($_POST["login"])) {
     <button class="w-100 btn btn-lg btn-primary" name="login" type="submit">Sign in</button>
   </form>
 </main>
-    
 </body>
 </html>

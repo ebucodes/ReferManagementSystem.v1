@@ -48,10 +48,10 @@
         </header>
 
         <main class="px-3">
-            <h1>Cover your page.</h1>
-            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+            <h1>Welcome to EbuCodes Simple Referral Management System.</h1>
+            <p class="lead"></p>
             <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+                <a href="users/register.php" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Get Started</a>
             </p>
         </main>
 

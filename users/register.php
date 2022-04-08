@@ -125,14 +125,14 @@
     
 <div class="container">
   <main>
-    <div class="py-5 text-center">
+    <div class="text-center">
       <img class="d-block mx-auto mb-4" src="../assets/images/logo2.png" alt="" width="100" height="">
       <h2>Registration Form</h2>
       <p class="lead">Please enter your details correctly</p>
     </div>
 
-    <div class="row g-5">
-      <div class="col-md-12">
+    <div class="row">
+      <div class="col">
         <!-- <h4 class="mb-3"></h4> -->
         <form method="POST" class="needs-validation" novalidate>
           <div class="row g-3">
@@ -184,13 +184,10 @@
 
           <button name="register" class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
         </form>
+        <p class="lead">Already a member?&nbsp;<a href="index.php">Sign In</a></p>
       </div>
     </div>
   </main>
-
-  <footer class="my-2 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; <?php echo date('Y'); ?></p>
-  </footer>
 </div>
 
     <!-- Bootstrap -->
